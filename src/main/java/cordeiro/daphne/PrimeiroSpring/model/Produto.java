@@ -1,4 +1,4 @@
-package model;
+package cordeiro.daphne.PrimeiroSpring.model;
 
 import lombok.Data;
 import lombok.Getter;

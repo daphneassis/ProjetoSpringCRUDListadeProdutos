@@ -2,7 +2,6 @@ package cordeiro.daphne.PrimeiroSpring.controller;
 
 import cordeiro.daphne.PrimeiroSpring.dto.ProdutoRequest;
 import cordeiro.daphne.PrimeiroSpring.dto.ValorTotalEstoque;
-import model.Produto;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
