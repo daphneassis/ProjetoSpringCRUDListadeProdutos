@@ -6,7 +6,6 @@ import cordeiro.daphne.PrimeiroSpring.model.Produto;
 import cordeiro.daphne.PrimeiroSpring.service.ProdutoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
-import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -19,12 +18,14 @@ public class ProdutoController {
     private final ProdutoService produtoService;
 
     @PostMapping
-    public String create(ProdutoRequest produtoRequest) {
+    public String create(@RequestBody ProdutoRequest produtoRequest) {
         Produto produto = new Produto();
+        BeanUtils.copyProperties(produtoRequest, produto);
+        /*
         produto.setNome(produtoRequest.getNome());
         produto.setMarca(produtoRequest.getMarca());
         produto.setPreco(produtoRequest.getPreco());
-        produto.setQuantidade(produtoRequest.getQuantidade());
+        produto.setQuantidade(produtoRequest.getQuantidade());*/
         produto = produtoService.criar(produto);
         return produto.getId();
     }
@@ -33,7 +34,7 @@ public class ProdutoController {
     public List<ProdutoResponse> readAll() {
         return produtoService.obterTodos().stream().map(produto -> {
             ProdutoResponse produtoResponse = new ProdutoResponse();
-            BeanUtils.copyProperties(produto, produtoService);
+            BeanUtils.copyProperties(produto, produtoResponse);
             return produtoResponse;
         }).collect(Collectors.toList());
     }
@@ -41,16 +42,17 @@ public class ProdutoController {
     public ProdutoResponse read(@PathVariable String id) {
         Produto produto = produtoService.selecionarProduto(id);
         ProdutoResponse produtoResponse = new ProdutoResponse();
-        produtoResponse.setNome(produto.getNome());
+        BeanUtils.copyProperties(produto, produtoResponse);
+        /*produtoResponse.setNome(produto.getNome());
         produtoResponse.setMarca(produto.getMarca());
         produtoResponse.setPreco(produto.getPreco());
-        produtoResponse.setQuantidade(produto.getQuantidade());
+        produtoResponse.setQuantidade(produto.getQuantidade());*/
         return produtoResponse;
     }
 
     @PutMapping
     public ProdutoResponse update(@PathVariable String id, @RequestBody ProdutoRequest produtoRequest) {
-        Produto produto = produtoService.obter(id);
+        Produto produto = produtoService.selecionarProduto(id);
         BeanUtils.copyProperties(produtoRequest, produto);
         produto = produtoService.atualizar(produto);
         ProdutoResponse produtoResponse = new ProdutoResponse();

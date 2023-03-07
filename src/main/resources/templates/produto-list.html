@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos</title>
+    <link href="style.css">
+</head>
+<body>
+<div th:switch="${#lists.size(produtos)}">
+    <h2 th:case="0">Não foi registrado nenhum produto!</h2>
+    <div th:case="*">
+        <h2>Produtos</h2>
+        <table>
+            <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Marca</th>
+                <th>Preço</th>
+                <th>Quantidade</th>
+                <th>Ações</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="produto:${produtos}">
+                <td th:text="${produto.nome}"></td>
+                <td th:text="${produto.marca}"></td>
+                <td th:text="${produto.preco}"></td>
+                <td th:text="${produto.quantidade}"></td>
+                <td>
+                    <a th:href="@{/produto-edit/{id}(id=${produto.id})}">Editar</a>
+                    <a th:href="@{/produto-delete/{id}(id=${produto.id})}">Excluir</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <p><a href="/produto-new">Adicionar um novo produto</a></p>
+</div>
+</body>
+</html>

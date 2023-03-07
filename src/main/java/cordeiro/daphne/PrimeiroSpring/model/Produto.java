@@ -18,6 +18,5 @@ public class Produto {
     private String marca;
     private Double preco;
     private Double quantidade;
-    private LocalDateTime ultimoPedido;
 
 }

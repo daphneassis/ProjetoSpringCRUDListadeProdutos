@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Produtos</title>
+</head>
+<body>
+<form action="#" th:action="@{/excluir/{id}(id=${produto.id})}" th:object="${produto}" th:method = "PUT">
+    Nome: <span th:text="${produto.nome}"></span>
+  <br />
+    Marca: <span th:text="${produto.marca}"></span>
+  <br />
+    Preço: <span th:text="${produto.preco}"></span>
+  <br />
+    Quantidade: <span th:text="${produto.quantidade}"></span>
+
+  <input type="submit" name="save" value="Excluir produto" />
+</form>
+</body>
+</html>
